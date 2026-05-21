@@ -4,6 +4,7 @@ import { createServiceClient } from "@/lib/supabase/server";
 import { RankingList, type DateBreakdown } from "@/components/RankingList";
 import { ShareBlock } from "@/components/ShareBlock";
 import { CloseEventButton } from "@/components/CloseEventButton";
+import { RecentEventRecorder } from "@/components/RecentEventRecorder";
 import { rank } from "@/lib/score";
 import { formatDateJa } from "@/lib/format";
 import type { EventDateScoreRow, EventRow, Mark } from "@/types/db";
@@ -68,6 +69,11 @@ export default async function EventPage(props: {
 
   return (
     <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-6 px-5 pb-16 pt-6 md:max-w-6xl md:px-10">
+      <RecentEventRecorder
+        eventId={ev.id}
+        title={ev.title}
+        adminToken={isAdmin ? ev.admin_token : null}
+      />
       <header className="animate-fade-up">
         <div className="flex items-center gap-2">
           <span
