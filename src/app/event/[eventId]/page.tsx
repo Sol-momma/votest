@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createServiceClient } from "@/lib/supabase/server";
 import { RankingList, type DateBreakdown } from "@/components/RankingList";
+import { RankingChart } from "@/components/RankingChart";
 import { ShareBlock } from "@/components/ShareBlock";
 import { CloseEventButton } from "@/components/CloseEventButton";
 import { RecentEventRecorder } from "@/components/RecentEventRecorder";
@@ -162,7 +163,7 @@ export default async function EventPage(props: {
           ) : (
             <section
               aria-label="結果ランキング"
-              className="animate-fade-up flex flex-col gap-4"
+              className="animate-fade-up flex flex-col gap-5"
               style={{ animationDelay: "120ms" }}
             >
               <div className="flex items-baseline justify-between px-0.5">
@@ -171,11 +172,24 @@ export default async function EventPage(props: {
                 </span>
                 <span className="text-[11px] text-ink-faint">高い順</span>
               </div>
-              <RankingList
+
+              {/* 横棒グラフ - 一望できる summary view */}
+              <RankingChart
                 scores={scoreRows}
                 decidedDateId={ev.decided_date_id}
-                breakdown={breakdown}
               />
+
+              {/* 詳細カード - 名前・内訳まで含む detail view */}
+              <div className="pt-2">
+                <span className="mb-3 inline-block px-0.5 text-[11px] font-semibold tracking-wider text-ink-muted uppercase">
+                  詳細
+                </span>
+                <RankingList
+                  scores={scoreRows}
+                  decidedDateId={ev.decided_date_id}
+                  breakdown={breakdown}
+                />
+              </div>
             </section>
           )}
         </div>
