@@ -19,30 +19,30 @@ export default function Home() {
 
       {/* Hero */}
       <section className="relative">
-        {/* Floating decorative emojis */}
+        {/* Floating decorative emojis with parallax */}
         <span
           aria-hidden
-          className="animate-float-a absolute -top-2 right-2 inline-block text-3xl md:text-4xl"
+          className="animate-float-a scroll-parallax-slow absolute -top-2 right-2 inline-block text-3xl md:text-4xl"
         >
           🎉
         </span>
         <span
           aria-hidden
-          className="animate-float-b absolute top-24 left-0 inline-block text-2xl md:text-3xl"
+          className="animate-float-b scroll-parallax-mid absolute top-24 left-0 inline-block text-2xl md:text-3xl"
           style={{ animationDelay: "0.6s" }}
         >
           🍣
         </span>
         <span
           aria-hidden
-          className="animate-float-c absolute top-10 right-1/3 hidden text-3xl md:inline-block md:text-4xl"
+          className="animate-float-c scroll-parallax-fast absolute top-10 right-1/3 hidden text-3xl md:inline-block md:text-4xl"
           style={{ animationDelay: "1.2s" }}
         >
           ⭐
         </span>
         <span
           aria-hidden
-          className="animate-float-a absolute top-40 right-4 hidden text-2xl md:inline-block md:text-3xl"
+          className="animate-float-a scroll-parallax-mid absolute top-40 right-4 hidden text-2xl md:inline-block md:text-3xl"
           style={{ animationDelay: "1.8s" }}
         >
           🍰
@@ -87,9 +87,69 @@ export default function Home() {
         </p>
       </section>
 
+      {/* 3D rotating cube — vote marks */}
+      <section className="relative mt-14 md:mt-20">
+        <div className="scroll-enter flex flex-col items-center">
+          <p className="font-brand text-[10px] tracking-widest text-ink-muted uppercase">
+            How it works
+          </p>
+          <p className="font-display mt-2 text-center text-[14px] text-ink-muted md:text-[15px]">
+            候補日に <span className="font-bold text-ink">◯ 🤔 ×</span> を投票。
+            <br />
+            集まる日が一目で決まる。
+          </p>
+        </div>
+
+        <div className="cube-perspective scroll-cube-spin mx-auto mt-10 size-32 md:scale-125">
+          <div className="cube-3d mx-auto size-full">
+            {/* 6 faces */}
+            <div
+              className="cube-face border border-line bg-tag-green-bg text-[64px] md:text-[80px]"
+              style={{ transform: "translateZ(64px)" }}
+            >
+              ◯
+            </div>
+            <div
+              className="cube-face border border-line bg-tag-yellow-bg text-[56px] md:text-[72px]"
+              style={{ transform: "rotateY(90deg) translateZ(64px)" }}
+            >
+              🤔
+            </div>
+            <div
+              className="cube-face border border-line bg-tag-red-bg text-[64px] md:text-[80px]"
+              style={{ transform: "rotateY(180deg) translateZ(64px)" }}
+            >
+              ×
+            </div>
+            <div
+              className="cube-face border border-line bg-tag-blue-bg text-[56px] md:text-[72px]"
+              style={{ transform: "rotateY(-90deg) translateZ(64px)" }}
+            >
+              📅
+            </div>
+            <div
+              className="cube-face border border-line bg-tag-orange-bg text-[56px] md:text-[72px]"
+              style={{ transform: "rotateX(90deg) translateZ(64px)" }}
+            >
+              🏆
+            </div>
+            <div
+              className="cube-face border border-line bg-tag-purple-bg text-[56px] md:text-[72px]"
+              style={{ transform: "rotateX(-90deg) translateZ(64px)" }}
+            >
+              🎉
+            </div>
+          </div>
+        </div>
+
+        <p className="mt-8 text-center text-[11px] text-ink-faint md:text-[12px]">
+          ↓ スクロールでさらに回る
+        </p>
+      </section>
+
       {/* Sample event preview — fake card */}
       <section
-        className="animate-fade-up relative mt-10 md:mt-14"
+        className="scroll-enter-rotate relative mt-14 md:mt-20"
         style={{ animationDelay: "220ms" }}
       >
         <div className="relative">
@@ -260,10 +320,7 @@ export default function Home() {
       </section>
 
       {/* Strengths / why ituiku */}
-      <section
-        className="animate-fade-up relative mt-14 md:mt-20"
-        style={{ animationDelay: "400ms" }}
-      >
+      <section className="scroll-enter relative mt-14 md:mt-20">
         <div className="text-center">
           <span className="tag tag-blue">なぜ いついく？</span>
           <h3 className="font-display mt-3 text-[22px] font-bold text-ink md:text-3xl">
@@ -361,10 +418,7 @@ export default function Home() {
       </section>
 
       {/* Differentiation tagline */}
-      <section
-        className="animate-fade-up relative mt-14 overflow-hidden rounded-3xl border border-line bg-paper p-7 text-center md:mt-20 md:p-10"
-        style={{ animationDelay: "500ms" }}
-      >
+      <section className="scroll-enter-rotate relative mt-14 overflow-hidden rounded-3xl border border-line bg-paper p-7 text-center md:mt-20 md:p-10">
         <div
           aria-hidden
           className="pointer-events-none absolute -top-12 -left-12 h-40 w-40 rounded-full bg-tag-yellow-bg blur-3xl opacity-60"

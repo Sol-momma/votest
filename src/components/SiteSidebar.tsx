@@ -25,18 +25,26 @@ export function SiteSidebar() {
   return (
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-line bg-paper-cream md:flex">
       {/* Brand */}
-      <div className="flex items-center gap-2 px-5 py-4">
+      <div className="flex items-center px-5 py-4">
         <Link
           href="/"
           aria-label="いついく？ トップへ"
-          className="flex items-center gap-2 active:scale-[0.98] transition"
+          className="group relative inline-flex h-9 items-center transition active:scale-[0.96]"
         >
-          <span aria-hidden className="text-[24px] leading-none">
+          <span
+            aria-hidden
+            className="relative z-10 text-[26px] leading-none transition-transform duration-300 ease-out group-hover:-rotate-12 group-hover:scale-110"
+          >
             📅
           </span>
-          <span className="font-display text-[22px] font-bold leading-none tracking-[-0.03em] text-ink">
-            いついく
-            <span className="text-accent">？</span>
+          <span
+            className="ml-1 inline-flex max-w-0 overflow-hidden opacity-0 -translate-x-2 transition-all duration-400 ease-out group-hover:max-w-[200px] group-hover:opacity-100 group-hover:translate-x-0"
+            style={{ transitionDuration: "350ms" }}
+          >
+            <span className="whitespace-nowrap font-display text-[22px] font-bold leading-none tracking-[-0.03em] text-ink">
+              いついく
+              <span className="text-accent">？</span>
+            </span>
           </span>
         </Link>
       </div>
