@@ -36,7 +36,8 @@ export function CreateEventForm() {
           新しいイベント
         </h1>
         <p className="mt-2 text-[14px] text-ink-muted">
-          タイトルと候補日を決めて、共有URLを発行します。
+          候補日はいくつ選んでも大丈夫。
+          <span className="text-ink">参加者は数タップで投票できます。</span>
         </p>
       </header>
 
@@ -113,6 +114,9 @@ export function CreateEventForm() {
             {dates.length > 0 && (
               <span className="tabular text-[11px] text-ink-faint">
                 {dates.length} 件選択中
+                {dates.length >= 10 && (
+                  <span className="ml-1.5 font-bold text-accent">いいね！</span>
+                )}
               </span>
             )}
           </div>

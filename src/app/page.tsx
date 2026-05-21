@@ -47,12 +47,24 @@ export default function Home() {
           </h1>
 
           <p
-            className="animate-fade-up mt-4 max-w-md text-[15px] leading-[1.7] text-ink-soft md:mt-5 md:text-[17px]"
+            className="animate-fade-up mt-5 max-w-md text-[18px] leading-[1.55] font-bold text-ink md:mt-6 md:text-[22px]"
             style={{ animationDelay: "120ms" }}
           >
-            候補日に投票するだけで、
+            候補日が
+            <span className="text-accent">10件</span>
+            でも、
             <br className="md:hidden" />
-            集まる日がパッと決まる！
+            答えるのは
+            <span className="text-accent">30秒</span>
+            。
+          </p>
+          <p
+            className="animate-fade-up mt-3 max-w-md text-[13px] leading-relaxed text-ink-muted md:text-[14px]"
+            style={{ animationDelay: "150ms" }}
+          >
+            一括投票・範囲投票で、たくさんの候補日もサクッと。
+            <br />
+            投票結果は出席率順に自動で並びます。
           </p>
 
           {/* Annotation pointer */}
@@ -61,8 +73,7 @@ export default function Home() {
             style={{ animationDelay: "180ms" }}
           >
             <p className="text-[14px] font-bold text-accent md:text-[15px]">
-              <span className="text-ink">ログイン不要</span>で
-              <span className="text-ink">無料</span>で使えます
+              <span className="text-ink">候補日いくつあっても</span>サクサク投票！
             </p>
             <svg
               aria-hidden
@@ -196,6 +207,82 @@ export default function Home() {
       </section>
 
       {/* ════════════════════════════════════════════════════════
+          SPEED COMPARISON  ―  他より速いを見せる
+          ════════════════════════════════════════════════════════ */}
+      <section className="relative px-6 pb-20 md:px-12 md:pb-28">
+        <div className="mx-auto max-w-3xl">
+          <div className="overflow-hidden rounded-[24px] border border-line bg-paper p-7 md:p-10">
+            <div className="text-center">
+              <span className="font-brand text-[11px] tracking-[0.3em] text-ink-muted uppercase">
+                Speed Comparison
+              </span>
+              <h2 className="font-display mt-3 text-[26px] leading-tight font-bold tracking-tight text-ink md:text-[36px]">
+                候補日10件を答えるのに、
+                <br className="md:hidden" />
+                いくつタップする？
+              </h2>
+            </div>
+
+            <div className="mt-10 grid gap-3 md:grid-cols-2 md:gap-4">
+              {/* 他のサービス */}
+              <div className="rounded-2xl border border-line bg-paper-cream p-6 md:p-7">
+                <p className="text-[11px] tracking-[0.2em] text-ink-faint uppercase">
+                  他のサービス
+                </p>
+                <div className="mt-3 flex items-baseline gap-2">
+                  <span className="font-display tabular text-[64px] font-bold leading-none text-ink-muted md:text-[80px]">
+                    10
+                  </span>
+                  <span className="text-[16px] font-bold text-ink-muted">タップ</span>
+                </div>
+                <div className="mt-4 grid grid-cols-10 gap-1">
+                  {Array.from({ length: 10 }).map((_, i) => (
+                    <div key={i} className="h-3 rounded bg-ink-faint/40" />
+                  ))}
+                </div>
+                <p className="mt-4 text-[12px] leading-relaxed text-ink-muted md:text-[13px]">
+                  1日ずつ ◯ × をタップしていく必要があります。
+                </p>
+              </div>
+
+              {/* いついく？ */}
+              <div className="rounded-2xl border-2 border-accent bg-accent-soft/30 p-6 md:p-7">
+                <p className="text-[11px] tracking-[0.2em] text-accent uppercase font-bold">
+                  ✨ いついく？
+                </p>
+                <div className="mt-3 flex items-baseline gap-2">
+                  <span className="font-display tabular text-[64px] font-bold leading-none text-accent md:text-[80px]">
+                    2
+                  </span>
+                  <span className="text-[16px] font-bold text-accent">タップ</span>
+                </div>
+                <div className="mt-4 grid grid-cols-10 gap-1">
+                  {Array.from({ length: 2 }).map((_, i) => (
+                    <div key={i} className="h-3 rounded bg-accent" />
+                  ))}
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <div key={`empty-${i}`} className="h-3 rounded bg-paper" />
+                  ))}
+                </div>
+                <p className="mt-4 text-[12px] leading-relaxed text-ink md:text-[13px]">
+                  「全部◯」→ 行けない日だけ ×。それで完了。
+                </p>
+              </div>
+            </div>
+
+            <p className="mt-8 text-center text-[13px] leading-relaxed text-ink-muted md:text-[14px]">
+              候補日が
+              <span className="font-bold text-ink">30件あっても、50件あっても</span>
+              、答え方は同じ。
+              <br className="md:hidden" />
+              <span className="font-bold text-accent">範囲投票</span>
+              でさらに速く。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════
           PRIMARY CTA
           ════════════════════════════════════════════════════════ */}
       <section className="relative px-6 pb-20 text-center md:px-12 md:pb-28">
@@ -238,7 +325,9 @@ export default function Home() {
               Features
             </span>
             <h2 className="font-display mt-3 text-[28px] leading-tight font-bold tracking-tight text-ink md:text-[40px]">
-              シンプルだけど、賢い。
+              候補日が多くても、
+              <br className="md:hidden" />
+              ラクに決まる仕掛け。
             </h2>
           </div>
 
@@ -459,12 +548,12 @@ export default function Home() {
         />
         <div className="mx-auto max-w-2xl">
           <h2 className="font-display text-[32px] leading-tight font-bold tracking-tight text-ink md:text-[48px]">
-            次の集まり、
+            候補日いっぱい？
             <br />
-            <span className="text-accent">いついく？</span>
+            <span className="text-accent">大丈夫、30秒。</span>
           </h2>
           <p className="mt-5 text-[14px] leading-relaxed text-ink-soft md:text-[16px]">
-            無料・登録不要・候補日いくつでも。
+            10件でも30件でも、答えやすさは変わりません。
             <br />
             まずは1イベント作ってみてください。
           </p>

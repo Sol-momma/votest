@@ -17,7 +17,7 @@ export function ShareBlock({ eventTitle, respondPath }: Props) {
     }
   }, [respondPath]);
 
-  const message = `「${eventTitle}」の日程アンケートです\n${shareUrl}`;
+  const message = `「${eventTitle}」の日程調整です\n候補日に ◯ 🤔 × を投票してね（30秒で完了）\n${shareUrl}`;
   const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(message)}`;
 
   const handleCopy = async () => {

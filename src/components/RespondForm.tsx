@@ -654,6 +654,16 @@ export function RespondForm({ eventId, eventTitle, dates }: Props) {
           <span className="tag tag-red">×</span>
           を選んで投票してください。
         </p>
+        {dates.length >= 7 && (
+          <div className="mt-4 flex items-start gap-2 rounded-md border border-accent/30 bg-accent-soft/40 px-3 py-2.5 text-[12px] leading-relaxed text-ink">
+            <span aria-hidden className="shrink-0 text-accent">💡</span>
+            <p>
+              候補日が
+              <span className="font-bold text-accent">{dates.length}件</span>
+              あります。「全部◯」→ 行けない日だけ × にするのが最速です。
+            </p>
+          </div>
+        )}
       </header>
 
       {/* Desktop: 2-col layout */}
@@ -676,6 +686,15 @@ export function RespondForm({ eventId, eventTitle, dates }: Props) {
               <span className="tag tag-red">×</span>
               を選んで投票してください。
             </p>
+            {dates.length >= 7 && (
+              <div className="mt-4 flex items-start gap-2 rounded-md border border-accent/30 bg-accent-soft/40 px-3 py-2.5 text-[12px] leading-relaxed text-ink">
+                <span aria-hidden className="shrink-0 text-accent">💡</span>
+                <p>
+                  <span className="font-bold text-accent">{dates.length}件</span>
+                  の候補日。「全部◯」→ 行けない日だけ × が最速です。
+                </p>
+              </div>
+            )}
           </header>
 
           <div
