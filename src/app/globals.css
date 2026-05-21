@@ -115,6 +115,27 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Vertical (tategaki) text for Japanese editorial accent */
+@utility tate {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-feature-settings: "vert" 1, "vrt2" 1;
+}
+
+/* Editorial Japanese leading + spacing */
+@utility leading-jp {
+  line-height: 1.9;
+}
+@utility leading-jp-tight {
+  line-height: 1.4;
+}
+
+/* Japanese punctuation kerning */
+@utility text-jp-display {
+  font-feature-settings: "palt" 1, "pkna" 1;
+  text-spacing-trim: trim-start;
+}
+
 /* Notion-like row hover */
 @layer components {
   .hover-row {
