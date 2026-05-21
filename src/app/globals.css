@@ -218,6 +218,44 @@
   50%      { box-shadow: 0 0 0 12px rgba(46, 117, 204, 0.15); }
 }
 
+/* ===== Marquee ===== */
+@keyframes vt-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@utility animate-marquee {
+  animation: vt-marquee 38s linear infinite;
+  will-change: transform;
+}
+@utility animate-marquee-slow {
+  animation: vt-marquee 60s linear infinite;
+  will-change: transform;
+}
+
+/* ===== Dark theme tokens (home only) ===== */
+.theme-night {
+  --color-night: #0c0c0b;
+  --color-night-soft: #131312;
+  --color-night-strong: #1c1c1a;
+  --color-cream-warm: #f4f3ee;
+  --color-cream-warm-muted: #9a9892;
+  --color-cream-warm-faint: #5a5953;
+  --color-line-dim: #29292610;
+  --color-spark: #d4a437;
+  background-color: var(--color-night);
+  color: var(--color-cream-warm);
+}
+.theme-night ::selection {
+  background-color: var(--color-spark);
+  color: var(--color-night);
+}
+
+/* Custom cursor for theme-night */
+.theme-night.cursor-hidden,
+.theme-night.cursor-hidden * {
+  cursor: none !important;
+}
+
 @utility animate-fade-up {
   animation: vt-fade-up 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
