@@ -22,60 +22,198 @@ export function CreateEventForm() {
   };
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col gap-5 px-4 pb-32 pt-6">
-      <header>
-        <p className="text-xs text-zinc-500">新しい日程調整</p>
-        <h1 className="mt-1 text-2xl font-bold leading-tight text-zinc-900">
-          イベントを作る
+    <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-8 px-5 pb-32 pt-6 md:max-w-6xl md:px-10">
+      <header className="animate-fade-up">
+        <h1 className="font-display text-3xl leading-tight font-bold text-ink md:text-[40px]">
+          新しいイベント
         </h1>
+        <p className="mt-2 text-[14px] text-ink-muted">
+          タイトルと候補日を決めて、共有URLを発行します。
+        </p>
       </header>
 
-      <label className="block">
-        <span className="mb-1 block text-sm font-medium text-zinc-700">イベント名</span>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          maxLength={80}
-          placeholder="例：卒業式ご飯会🌸"
-          className="h-14 w-full rounded-2xl border border-zinc-300 bg-white px-4 text-lg shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
-        />
-      </label>
+      {/* Title field — full width */}
+      <section
+        className="animate-fade-up"
+        style={{ animationDelay: "60ms" }}
+      >
+        <label className="block">
+          <div className="mb-2 flex items-center justify-between px-0.5">
+            <span className="text-[13px] font-semibold text-ink-soft">
+              タイトル
+            </span>
+            <span className="tabular text-[11px] text-ink-faint">
+              {title.length} / 80
+            </span>
+          </div>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            maxLength={80}
+            placeholder="例：卒業祝いごはん🌸"
+            className="font-display h-12 w-full rounded-md border border-line bg-paper px-3 text-[16px] font-semibold text-ink transition placeholder:font-normal placeholder:text-ink-faint focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent-soft"
+          />
+        </label>
+      </section>
 
-      <div>
-        <span className="mb-2 block text-sm font-medium text-zinc-700">
-          候補日（タップで選択／もう一度タップで解除）
-        </span>
-        <DatePickerMulti value={dates} onChange={setDates} />
+      {/* 2-col on md+: calendar (left) + summary (right) */}
+      <div className="flex flex-col gap-8 md:grid md:grid-cols-[minmax(0,1fr)_28rem] md:items-start md:gap-8 lg:grid-cols-[minmax(0,1fr)_32rem]">
+        {/* Calendar */}
+        <section
+          className="animate-fade-up md:col-start-1"
+          style={{ animationDelay: "120ms" }}
+        >
+          <div className="mb-2 flex items-center justify-between px-0.5">
+            <span className="text-[13px] font-semibold text-ink-soft">
+              候補日
+            </span>
+            {dates.length > 0 && (
+              <span className="tabular text-[11px] text-ink-faint">
+                {dates.length} 件選択中
+              </span>
+            )}
+          </div>
+          <DatePickerMulti value={dates} onChange={setDates} />
+        </section>
+
+        {/* Selected dates panel — sticky on desktop */}
+        <aside
+          className="animate-fade-up md:col-start-2 md:sticky md:top-24 md:self-start"
+          style={{ animationDelay: "150ms" }}
+        >
+          {dates.length > 0 ? (
+            <div className="callout callout-gray">
+              <span aria-hidden className="text-base leading-tight">
+                ✨
+              </span>
+              <div className="flex-1">
+                <div className="flex items-baseline justify-between">
+                  <p className="text-[12px] font-semibold text-ink-soft">
+                    選んだ候補日
+                    <span className="ml-1.5 tabular text-ink-faint">
+                      {dates.length}件
+                    </span>
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setDates([])}
+                    className="text-[11px] font-medium text-ink-faint hover:text-ink-muted transition"
+                  >
+                    全クリア
+                  </button>
+                </div>
+                <ul className="mt-2 flex flex-wrap gap-1.5">
+                  {dates.map((d) => (
+                    <li
+                      key={d}
+                      className="group flex items-center gap-0.5 rounded-md border border-line bg-paper py-0.5 pl-2 pr-1 transition hover:border-line-strong"
+                    >
+                      <span className="font-display tabular text-[12px] font-semibold text-ink">
+                        {formatDateJa(d)}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setDates((prev) => prev.filter((v) => v !== d))
+                        }
+                        aria-label={`${formatDateJa(d)}を削除`}
+                        className="flex size-4 shrink-0 items-center justify-center rounded text-ink-faint transition hover:bg-paper-shade hover:text-ink active:scale-90"
+                      >
+                        <svg
+                          aria-hidden
+                          className="size-3"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.4"
+                          strokeLinecap="round"
+                        >
+                          <path d="M6 6l8 8M6 14l8-8" />
+                        </svg>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ) : (
+            <div className="callout callout-gray">
+              <span aria-hidden className="text-base leading-tight">
+                📝
+              </span>
+              <div className="flex-1">
+                <p className="text-[12px] font-semibold text-ink-soft">
+                  選んだ候補日
+                </p>
+                <p className="mt-1 text-[12px] text-ink-faint">
+                  ここに選んだ日が並びます。
+                </p>
+              </div>
+            </div>
+          )}
+        </aside>
       </div>
 
-      {dates.length > 0 && (
-        <div className="rounded-2xl bg-zinc-50 p-3">
-          <p className="mb-1 text-xs text-zinc-500">選択中（{dates.length}件）</p>
-          <p className="text-sm text-zinc-700">
-            {dates.map(formatDateJa).join("、")}
-          </p>
+      {error && (
+        <div
+          className="callout"
+          style={{
+            backgroundColor: "var(--color-tag-red-bg)",
+            color: "var(--color-tag-red-text)",
+          }}
+        >
+          <span aria-hidden>⚠️</span>
+          <p className="flex-1 text-[13px] font-medium">{error}</p>
         </div>
       )}
 
-      {error && (
-        <p role="alert" className="rounded-xl bg-rose-50 px-3 py-2 text-sm text-rose-700">
-          {error}
-        </p>
-      )}
-
-      <div className="fixed inset-x-0 bottom-0 border-t border-zinc-200 bg-white/95 px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-3 backdrop-blur">
-        <div className="mx-auto max-w-md">
+      {/* Sticky CTA */}
+      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-paper px-5 pt-3 pb-[calc(env(safe-area-inset-bottom)+14px)] md:px-10">
+        <div className="mx-auto max-w-md md:max-w-6xl md:flex md:justify-end">
           <button
             type="button"
             disabled={!canSubmit}
             onClick={onSubmit}
-            className="h-14 w-full rounded-2xl bg-emerald-600 text-lg font-bold text-white shadow-md transition active:scale-[0.99] disabled:bg-zinc-300"
+            className={`flex h-12 w-full items-center justify-center gap-2 rounded-md text-[15px] font-semibold transition active:scale-[0.985] md:w-auto md:px-8 ${
+              canSubmit
+                ? "bg-accent text-paper shadow-sm active:bg-accent-strong"
+                : "cursor-not-allowed bg-paper-deep text-ink-faint"
+            }`}
           >
-            {pending ? "作成中..." : "イベント作成"}
+            {pending ? (
+              <>
+                <span className="inline-block size-4 animate-spin rounded-full border-2 border-paper/30 border-t-paper" />
+                作成中…
+              </>
+            ) : (
+              <>
+                イベントを作成
+                <svg
+                  aria-hidden
+                  className="size-4"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M4 10h12m-4-4l4 4-4 4" />
+                </svg>
+              </>
+            )}
           </button>
+          {!canSubmit && !pending && (
+            <p className="mt-2 text-center text-[11px] text-ink-faint md:mt-0 md:self-center md:pr-4 md:text-right">
+              {title.trim().length === 0 && "タイトル"}
+              {title.trim().length === 0 && dates.length === 0 && " と "}
+              {dates.length === 0 && "候補日"}
+              を入力してください
+            </p>
+          )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

@@ -50,7 +50,10 @@ export default async function EventPage(props: {
   const totalRespondents = responses.length;
 
   const breakdown: Record<string, DateBreakdown> = Object.fromEntries(
-    scoreRows.map((s) => [s.event_date_id, { o: [], t: [], x: [] } as DateBreakdown]),
+    scoreRows.map((s) => [
+      s.event_date_id,
+      { o: [], t: [], x: [] } as DateBreakdown,
+    ]),
   );
   for (const r of responses) {
     for (const a of r.response_answers) {
@@ -64,82 +67,146 @@ export default async function EventPage(props: {
   const topDateId = ranked.length > 0 ? ranked[0].event_date_id : null;
 
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-5 px-4 pb-12 pt-6">
-      <header>
-        <p className="text-xs text-zinc-500">
-          {ev.is_closed ? "締切済み" : "回答受付中"}
-          {totalRespondents > 0 && ` ・ ${totalRespondents}名が回答`}
-        </p>
-        <h1 className="mt-1 text-2xl font-bold leading-tight text-zinc-900">{ev.title}</h1>
+    <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-6 px-5 pb-16 pt-6 md:max-w-6xl md:px-10">
+      <header className="animate-fade-up">
+        <div className="flex items-center gap-2">
+          <span
+            className={ev.is_closed ? "tag tag-gray" : "tag tag-green"}
+          >
+            {ev.is_closed ? "締切済み" : "投票受付中"}
+          </span>
+          {totalRespondents > 0 && (
+            <span className="text-[12px] text-ink-muted">
+              <span className="tabular font-semibold text-ink">
+                {totalRespondents}
+              </span>
+              名が投票
+            </span>
+          )}
+        </div>
+
+        <h1 className="font-display mt-2 text-2xl leading-tight font-bold text-ink md:text-[32px]">
+          {ev.title}
+        </h1>
       </header>
 
       {submitted && (
-        <div className="rounded-2xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800">
-          回答ありがとうございました ✓
+        <div className="animate-bounce-in callout callout-gray">
+          <span aria-hidden>✅</span>
+          <p className="flex-1 text-[13px] font-semibold text-ink">
+            投票ありがとうございました
+          </p>
         </div>
       )}
 
-      {!ev.is_closed && (
-        <Link
-          href={`/event/${eventId}/respond`}
-          className="flex h-14 w-full items-center justify-center rounded-2xl bg-emerald-600 text-lg font-bold text-white shadow-md active:scale-[0.99]"
-        >
-          {totalRespondents > 0 ? "あなたも回答する" : "回答する"}
-        </Link>
-      )}
+      {/* 2-col on md+: main content (left) + sidebar (right) */}
+      <div className="flex flex-col gap-6 md:grid md:grid-cols-[minmax(0,1fr)_24rem] md:items-start md:gap-8 lg:grid-cols-[minmax(0,1fr)_28rem]">
+        {/* Left: main content */}
+        <div className="md:col-start-1 flex flex-col gap-6">
+          {!ev.is_closed && (
+            <Link
+              href={`/event/${eventId}/respond`}
+              className="animate-fade-up flex h-12 w-full items-center justify-center gap-2 rounded-md bg-accent text-[15px] font-semibold text-paper shadow-sm transition active:scale-[0.985] active:bg-accent-strong"
+              style={{ animationDelay: "60ms" }}
+            >
+              {totalRespondents > 0 ? "あなたも投票する" : "投票する"}
+              <svg
+                aria-hidden
+                className="size-4"
+                viewBox="0 0 20 20"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M4 10h12m-4-4l4 4-4 4" />
+              </svg>
+            </Link>
+          )}
 
-      {totalRespondents === 0 ? (
-        <>
-          <div className="rounded-2xl border border-zinc-200 bg-white p-4">
-            <p className="mb-2 text-sm font-medium text-zinc-700">
-              候補日（{scoreRows.length}件）
-            </p>
-            <p className="text-sm text-zinc-600">
-              {scoreRows
-                .slice()
-                .sort((a, b) => a.sort_order - b.sort_order)
-                .map((s) => formatDateJa(s.date))
-                .join("、")}
-            </p>
-          </div>
+          {totalRespondents === 0 ? (
+            <div
+              className="animate-fade-up overflow-hidden rounded-md border border-line bg-paper"
+              style={{ animationDelay: "120ms" }}
+            >
+              <div className="flex items-center justify-between border-b border-line bg-paper-cream px-3 py-2">
+                <span className="text-[11px] font-semibold tracking-wider text-ink-muted uppercase">
+                  候補日 · {scoreRows.length} 件
+                </span>
+                <span className="text-[11px] text-ink-faint">投票待ち</span>
+              </div>
+              <ul className="divide-y divide-line">
+                {scoreRows
+                  .slice()
+                  .sort((a, b) => a.sort_order - b.sort_order)
+                  .map((s) => (
+                    <li
+                      key={s.event_date_id}
+                      className="flex items-center justify-between px-3 py-2.5"
+                    >
+                      <span className="font-display tabular text-[14px] font-semibold text-ink">
+                        {formatDateJa(s.date)}
+                      </span>
+                      <span className="text-[11px] text-ink-faint">—</span>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          ) : (
+            <section
+              aria-label="結果ランキング"
+              className="animate-fade-up flex flex-col gap-4"
+              style={{ animationDelay: "120ms" }}
+            >
+              <div className="flex items-baseline justify-between px-0.5">
+                <span className="text-[11px] font-semibold tracking-wider text-ink-muted uppercase">
+                  出席率ランキング
+                </span>
+                <span className="text-[11px] text-ink-faint">高い順</span>
+              </div>
+              <RankingList
+                scores={scoreRows}
+                decidedDateId={ev.decided_date_id}
+                breakdown={breakdown}
+              />
+            </section>
+          )}
+        </div>
+
+        {/* Right: sticky sidebar (share + admin) */}
+        <aside
+          className="animate-fade-up md:col-start-2 md:sticky md:top-24 md:self-start flex flex-col gap-4"
+          style={{ animationDelay: "150ms" }}
+        >
           <ShareBlock
             eventTitle={ev.title}
             respondPath={`/event/${eventId}/respond`}
           />
-        </>
-      ) : (
-        <section aria-label="結果ランキング">
-          <p className="mb-2 text-sm font-medium text-zinc-700">
-            みんなが行ける順
-          </p>
-          <RankingList
-            scores={scoreRows}
-            decidedDateId={ev.decided_date_id}
-            breakdown={breakdown}
-          />
-          <div className="mt-4">
-            <ShareBlock
-              eventTitle={ev.title}
-              respondPath={`/event/${eventId}/respond`}
-            />
-          </div>
-        </section>
-      )}
 
-      {isAdmin && (
-        <div className="mt-4">
-          <p className="mb-2 text-xs text-zinc-500">幹事メニュー</p>
-          <CloseEventButton
-            eventId={ev.id}
-            adminToken={ev.admin_token}
-            isClosed={ev.is_closed}
-            topDateId={topDateId}
-          />
-          <p className="mt-2 text-xs text-zinc-500">
-            ※ このURL（?admin=...付き）は他の人に共有しないでください
-          </p>
-        </div>
-      )}
+          {isAdmin && (
+            <div className="overflow-hidden rounded-md border border-line bg-paper">
+              <div className="flex items-center gap-2 border-b border-line bg-paper-cream px-3 py-2">
+                <span aria-hidden>🔐</span>
+                <span className="text-[11px] font-semibold tracking-wider text-ink-muted uppercase">
+                  管理メニュー
+                </span>
+              </div>
+              <div className="p-3">
+                <CloseEventButton
+                  eventId={ev.id}
+                  adminToken={ev.admin_token}
+                  isClosed={ev.is_closed}
+                  topDateId={topDateId}
+                />
+                <p className="mt-2 text-[11px] text-ink-faint">
+                  このURL（?admin=…付き）は他の人に共有しないでください
+                </p>
+              </div>
+            </div>
+          )}
+        </aside>
+      </div>
     </main>
   );
 }
