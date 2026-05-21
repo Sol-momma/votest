@@ -2,96 +2,292 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="mx-auto min-h-dvh max-w-md px-6 pb-32 pt-6">
+    <main className="relative mx-auto min-h-dvh max-w-md overflow-hidden px-6 pb-32 pt-6 md:max-w-5xl md:px-10 md:pb-20">
+      {/* Decorative pastel blobs */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-20 right-0 h-72 w-72 rounded-full bg-tag-blue-bg blur-3xl opacity-60"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-40 -left-20 h-60 w-60 rounded-full bg-tag-yellow-bg blur-3xl opacity-50"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-96 right-10 h-72 w-72 rounded-full bg-tag-green-bg blur-3xl opacity-40"
+      />
+
       {/* Hero */}
-      <h1
-        className="animate-fade-up font-display mt-6 text-[40px] leading-[1.1] font-bold text-ink"
-        style={{ animationDelay: "60ms" }}
-      >
-        いつ集まる？を、
-        <br />
-        投票で決める。
-      </h1>
+      <section className="relative">
+        {/* Floating decorative emojis */}
+        <span
+          aria-hidden
+          className="animate-float-a absolute -top-2 right-2 inline-block text-3xl md:text-4xl"
+        >
+          🎉
+        </span>
+        <span
+          aria-hidden
+          className="animate-float-b absolute top-24 left-0 inline-block text-2xl md:text-3xl"
+          style={{ animationDelay: "0.6s" }}
+        >
+          🍣
+        </span>
+        <span
+          aria-hidden
+          className="animate-float-c absolute top-10 right-1/3 hidden text-3xl md:inline-block md:text-4xl"
+          style={{ animationDelay: "1.2s" }}
+        >
+          ⭐
+        </span>
+        <span
+          aria-hidden
+          className="animate-float-a absolute top-40 right-4 hidden text-2xl md:inline-block md:text-3xl"
+          style={{ animationDelay: "1.8s" }}
+        >
+          🍰
+        </span>
 
-      <p
-        className="animate-fade-up mt-4 text-[15px] leading-relaxed text-ink-muted"
-        style={{ animationDelay: "120ms" }}
-      >
-        ログインなし、URLを送るだけ。候補日に
-        <span className="mx-1 tag tag-green">◯</span>
-        <span className="mr-1 tag tag-yellow">🤔</span>
-        <span className="tag tag-red">×</span>
-        を投票して、出席率の高い順に自動集計。
-      </p>
-
-      {/* Steps */}
-      <ol
-        className="animate-fade-up mt-10 divide-y divide-line border-y border-line"
-        style={{ animationDelay: "180ms" }}
-      >
-        {[
-          {
-            n: "01",
-            emoji: "🗓",
-            title: "候補日を選ぶ",
-            body: "カレンダーから複数の候補を一気に。",
-          },
-          {
-            n: "02",
-            emoji: "🔗",
-            title: "URLを共有",
-            body: "LINE・SMS、ログイン不要で誰にでも届く。",
-          },
-          {
-            n: "03",
-            emoji: "🏆",
-            title: "出席率順に集計",
-            body: "1位の日が一目でわかる。",
-          },
-        ].map((s) => (
-          <li
-            key={s.n}
-            className="hover-row flex items-center gap-4 px-2 py-4"
+        <div className="relative animate-fade-up">
+          <span
+            aria-hidden
+            className="inline-block rounded-full bg-paper px-3 py-1 text-[11px] font-bold tracking-wider text-ink-muted shadow-sm border border-line"
           >
+            👋 ようこそ
+          </span>
+        </div>
+
+        <h1
+          className="animate-fade-up font-display relative mt-5 text-[44px] leading-[1.05] font-bold text-ink md:text-[64px]"
+          style={{ animationDelay: "60ms" }}
+        >
+          <span className="relative inline-block">
+            いつ集まる
+            <span className="text-accent">？</span>
+          </span>
+          <br />
+          <span className="relative inline-block">
+            <span className="relative z-10">投票で決める。</span>
             <span
               aria-hidden
-              className="flex size-9 items-center justify-center rounded-md bg-paper-shade text-lg"
-            >
-              {s.emoji}
-            </span>
-            <div className="flex-1">
-              <p className="text-[15px] font-semibold text-ink">{s.title}</p>
-              <p className="mt-0.5 text-[13px] text-ink-muted">{s.body}</p>
-            </div>
-            <span className="tabular text-xs font-medium text-ink-faint">
-              {s.n}
-            </span>
-          </li>
-        ))}
-      </ol>
+              className="absolute bottom-1 left-0 -z-0 h-3 w-full rounded-sm bg-tag-yellow-bg md:h-4"
+            />
+          </span>
+        </h1>
 
+        <p
+          className="animate-fade-up relative mt-5 text-[15px] leading-relaxed text-ink-muted md:text-base"
+          style={{ animationDelay: "140ms" }}
+        >
+          ログインなし、URLを送るだけ。候補日に
+          <span className="mx-1 tag tag-green">◯</span>
+          <span className="mr-1 tag tag-yellow">🤔</span>
+          <span className="tag tag-red">×</span>
+          を投票して、出席率の高い順に自動集計。
+        </p>
+      </section>
+
+      {/* Sample event preview — fake card */}
+      <section
+        className="animate-fade-up relative mt-10 md:mt-14"
+        style={{ animationDelay: "220ms" }}
+      >
+        <div className="relative">
+          {/* Decorative emoji on top of card */}
+          <span
+            aria-hidden
+            className="animate-float-b absolute -top-4 right-6 z-10 text-2xl"
+          >
+            ✨
+          </span>
+
+          <div className="relative overflow-hidden rounded-3xl border border-line bg-paper p-5 shadow-card md:p-7">
+            {/* Card header */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="tag tag-green">投票受付中</span>
+                <span className="text-[12px] text-ink-muted">
+                  <span className="font-bold text-ink">8</span>名が投票
+                </span>
+              </div>
+              <span className="text-[10px] tracking-wider text-ink-faint uppercase">
+                Sample
+              </span>
+            </div>
+            <h2 className="font-display mt-2 text-xl font-bold text-ink md:text-2xl">
+              卒業祝いごはん🌸
+            </h2>
+
+            {/* Sample ranking entries */}
+            <ol className="mt-5 space-y-3">
+              {[
+                { rank: "🏆", date: "6/15(土)", pct: 88, o: 7, t: 1, x: 0, names: "たろう · はなこ · じろう ..." },
+                { rank: "#2", date: "6/16(日)", pct: 75, o: 6, t: 0, x: 2, names: "たろう · はなこ · ..." },
+                { rank: "#3", date: "6/14(金)", pct: 50, o: 3, t: 2, x: 3, names: "じろう · さぶろう" },
+              ].map((row, i) => (
+                <li
+                  key={row.date}
+                  className={`rounded-2xl border p-3 md:p-4 ${
+                    i === 0 ? "border-line-strong bg-tag-yellow-bg/40" : "border-line bg-paper"
+                  }`}
+                >
+                  <div className="flex items-baseline justify-between">
+                    <div className="flex items-baseline gap-2">
+                      <span className="tabular text-[12px] font-bold text-ink">
+                        {row.rank}
+                      </span>
+                      <span className="font-display text-[15px] font-bold text-ink">
+                        {row.date}
+                      </span>
+                    </div>
+                    <span className="tabular font-display text-[20px] font-bold text-accent">
+                      {row.pct}
+                      <span className="text-[11px] text-ink-muted">%</span>
+                    </span>
+                  </div>
+                  {/* Stacked bar */}
+                  <div className="mt-2 flex h-2 overflow-hidden rounded-full bg-paper-shade">
+                    <div
+                      className="transition-[width]"
+                      style={{
+                        width: `${(row.o / 8) * 100}%`,
+                        backgroundColor: "var(--color-tag-green-text)",
+                      }}
+                    />
+                    <div
+                      className="transition-[width]"
+                      style={{
+                        width: `${(row.t / 8) * 100}%`,
+                        backgroundColor: "var(--color-tag-yellow-text)",
+                      }}
+                    />
+                    <div
+                      className="transition-[width]"
+                      style={{
+                        width: `${(row.x / 8) * 100}%`,
+                        backgroundColor: "var(--color-tag-red-text)",
+                      }}
+                    />
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-1 text-[11px]">
+                    <span className="tag tag-green tabular">◯ {row.o}</span>
+                    <span className="tag tag-yellow tabular">🤔 {row.t}</span>
+                    <span className="tag tag-red tabular">× {row.x}</span>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {/* Speech bubble — testimonial */}
+          <div
+            aria-hidden
+            className="animate-float-a absolute -bottom-4 -right-2 hidden md:block"
+            style={{ animationDelay: "1.5s" }}
+          >
+            <div className="relative rounded-2xl bg-paper border border-line px-4 py-2 shadow-sm">
+              <p className="text-[13px] font-semibold text-ink">
+                これで決まり！ <span aria-hidden>🙌</span>
+              </p>
+              <span
+                aria-hidden
+                className="absolute -bottom-1.5 left-6 size-3 rotate-45 border-r border-b border-line bg-paper"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3 steps */}
+      <section
+        className="animate-fade-up mt-12 md:mt-16"
+        style={{ animationDelay: "320ms" }}
+      >
+        <h3 className="font-display text-center text-[18px] font-bold text-ink md:text-2xl">
+          かんたん3ステップ
+        </h3>
+        <ol className="mt-5 grid gap-3 md:grid-cols-3 md:gap-4">
+          {[
+            {
+              n: "01",
+              emoji: "🗓",
+              title: "候補日を選ぶ",
+              body: "カレンダーから複数の候補を一気にタップ。範囲選択もOK。",
+              chip: "tag-blue",
+            },
+            {
+              n: "02",
+              emoji: "🔗",
+              title: "URLを共有",
+              body: "LINE・SMS で送るだけ。ログイン不要で誰でも投票できる。",
+              chip: "tag-green",
+            },
+            {
+              n: "03",
+              emoji: "🏆",
+              title: "出席率順に集計",
+              body: "1位が一目でわかる。チャートで全員の都合がパッと見える。",
+              chip: "tag-yellow",
+            },
+          ].map((s) => (
+            <li
+              key={s.n}
+              className="group relative overflow-hidden rounded-2xl border border-line bg-paper p-5 transition hover:border-line-strong hover:shadow-soft"
+            >
+              <div className="flex items-center justify-between">
+                <span
+                  aria-hidden
+                  className={`tag ${s.chip} text-[10px] tracking-wider uppercase`}
+                >
+                  STEP {s.n}
+                </span>
+                <span
+                  aria-hidden
+                  className="text-3xl transition group-hover:animate-wiggle"
+                >
+                  {s.emoji}
+                </span>
+              </div>
+              <h4 className="font-display mt-3 text-[16px] font-bold text-ink md:text-lg">
+                {s.title}
+              </h4>
+              <p className="mt-1 text-[12px] leading-relaxed text-ink-muted md:text-[13px]">
+                {s.body}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* Footer note */}
       <p
-        className="animate-fade-up mt-6 text-[12px] text-ink-faint"
-        style={{ animationDelay: "260ms" }}
+        className="animate-fade-up mt-10 text-center text-[12px] text-ink-faint"
+        style={{ animationDelay: "440ms" }}
       >
         無料 ・ アカウント登録不要 ・ 候補日いくつでも
       </p>
 
       {/* Sticky CTA */}
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-paper px-5 pt-3 pb-[calc(env(safe-area-inset-bottom)+14px)]">
-        <div className="mx-auto max-w-md">
+      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-paper/95 px-5 pt-3 pb-[calc(env(safe-area-inset-bottom)+14px)] backdrop-blur md:left-64 md:px-10 md:pt-4 md:pb-4">
+        <div className="mx-auto max-w-md md:max-w-5xl">
           <Link
             href="/new"
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-md bg-accent text-[15px] font-semibold text-paper shadow-sm transition active:scale-[0.985] active:bg-accent-strong"
+            className="group relative flex h-14 w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-accent text-[16px] font-bold text-paper shadow-pop transition hover:bg-accent-strong active:scale-[0.985] md:h-12 md:text-[15px]"
           >
-            イベントを作る
+            <span
+              aria-hidden
+              className="absolute inset-x-0 top-0 h-px bg-white/30"
+            />
+            <span className="relative font-display tracking-tight">
+              イベントを作る
+            </span>
             <svg
               aria-hidden
-              className="size-4"
+              className="relative size-5 transition group-hover:translate-x-0.5"
               viewBox="0 0 20 20"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.2"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
