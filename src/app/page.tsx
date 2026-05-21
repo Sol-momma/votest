@@ -1,481 +1,402 @@
 import Link from "next/link";
+import { MouseTilt } from "@/components/MouseTilt";
 
 export default function Home() {
   return (
-    <main className="relative mx-auto min-h-dvh max-w-md overflow-hidden px-6 pb-32 pt-6 md:max-w-5xl md:px-10 md:pb-20">
-      {/* Decorative pastel blobs */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-20 right-0 h-72 w-72 rounded-full bg-tag-blue-bg blur-3xl opacity-60"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-40 -left-20 h-60 w-60 rounded-full bg-tag-yellow-bg blur-3xl opacity-50"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-96 right-10 h-72 w-72 rounded-full bg-tag-green-bg blur-3xl opacity-40"
-      />
-
-      {/* Hero */}
-      <section className="relative">
-        {/* Floating decorative emojis with parallax */}
-        <span
-          aria-hidden
-          className="animate-float-a scroll-parallax-slow absolute -top-2 right-2 inline-block text-3xl md:text-4xl"
-        >
-          🎉
-        </span>
-        <span
-          aria-hidden
-          className="animate-float-b scroll-parallax-mid absolute top-24 left-0 inline-block text-2xl md:text-3xl"
-          style={{ animationDelay: "0.6s" }}
-        >
-          🍣
-        </span>
-        <span
-          aria-hidden
-          className="animate-float-c scroll-parallax-fast absolute top-10 right-1/3 hidden text-3xl md:inline-block md:text-4xl"
-          style={{ animationDelay: "1.2s" }}
-        >
-          ⭐
-        </span>
-        <span
-          aria-hidden
-          className="animate-float-a scroll-parallax-mid absolute top-40 right-4 hidden text-2xl md:inline-block md:text-3xl"
-          style={{ animationDelay: "1.8s" }}
-        >
-          🍰
-        </span>
-
-        <div className="relative animate-fade-up">
-          <span
-            aria-hidden
-            className="inline-block rounded-full bg-paper px-3 py-1 text-[11px] font-bold tracking-wider text-ink-muted shadow-sm border border-line"
-          >
-            👋 ようこそ
-          </span>
-        </div>
-
-        <h1
-          className="animate-fade-up font-display relative mt-5 text-[44px] leading-[1.05] font-bold text-ink md:text-[64px]"
-          style={{ animationDelay: "60ms" }}
-        >
-          <span className="relative inline-block">
-            いつ集まる
-            <span className="text-accent">？</span>
-          </span>
-          <br />
-          <span className="relative inline-block">
-            <span className="relative z-10">投票で決める。</span>
-            <span
-              aria-hidden
-              className="absolute bottom-1 left-0 -z-0 h-3 w-full rounded-sm bg-tag-yellow-bg md:h-4"
-            />
-          </span>
-        </h1>
-
-        <p
-          className="animate-fade-up relative mt-5 text-[15px] leading-relaxed text-ink-muted md:text-base"
-          style={{ animationDelay: "140ms" }}
-        >
-          ログインなし、URLを送るだけ。候補日に
-          <span className="mx-1 tag tag-green">◯</span>
-          <span className="mr-1 tag tag-yellow">🤔</span>
-          <span className="tag tag-red">×</span>
-          を投票して、出席率の高い順に自動集計。
-        </p>
-      </section>
-
-      {/* 3D rotating cube — vote marks */}
-      <section className="relative mt-14 md:mt-20">
-        <div className="scroll-enter flex flex-col items-center">
-          <p className="font-brand text-[10px] tracking-widest text-ink-muted uppercase">
-            How it works
-          </p>
-          <p className="font-display mt-2 text-center text-[14px] text-ink-muted md:text-[15px]">
-            候補日に <span className="font-bold text-ink">◯ 🤔 ×</span> を投票。
-            <br />
-            集まる日が一目で決まる。
-          </p>
-        </div>
-
-        <div className="cube-perspective scroll-cube-spin mx-auto mt-10 size-32 md:scale-125">
-          <div className="cube-3d mx-auto size-full">
-            {/* 6 faces */}
-            <div
-              className="cube-face border border-line bg-tag-green-bg text-[64px] md:text-[80px]"
-              style={{ transform: "translateZ(64px)" }}
-            >
-              ◯
-            </div>
-            <div
-              className="cube-face border border-line bg-tag-yellow-bg text-[56px] md:text-[72px]"
-              style={{ transform: "rotateY(90deg) translateZ(64px)" }}
-            >
-              🤔
-            </div>
-            <div
-              className="cube-face border border-line bg-tag-red-bg text-[64px] md:text-[80px]"
-              style={{ transform: "rotateY(180deg) translateZ(64px)" }}
-            >
-              ×
-            </div>
-            <div
-              className="cube-face border border-line bg-tag-blue-bg text-[56px] md:text-[72px]"
-              style={{ transform: "rotateY(-90deg) translateZ(64px)" }}
-            >
-              📅
-            </div>
-            <div
-              className="cube-face border border-line bg-tag-orange-bg text-[56px] md:text-[72px]"
-              style={{ transform: "rotateX(90deg) translateZ(64px)" }}
-            >
-              🏆
-            </div>
-            <div
-              className="cube-face border border-line bg-tag-purple-bg text-[56px] md:text-[72px]"
-              style={{ transform: "rotateX(-90deg) translateZ(64px)" }}
-            >
-              🎉
-            </div>
-          </div>
-        </div>
-
-        <p className="mt-8 text-center text-[11px] text-ink-faint md:text-[12px]">
-          ↓ スクロールでさらに回る
-        </p>
-      </section>
-
-      {/* Sample event preview — fake card */}
-      <section
-        className="scroll-enter-rotate relative mt-14 md:mt-20"
-        style={{ animationDelay: "220ms" }}
-      >
-        <div className="relative">
-          {/* Decorative emoji on top of card */}
-          <span
-            aria-hidden
-            className="animate-float-b absolute -top-4 right-6 z-10 text-2xl"
-          >
-            ✨
-          </span>
-
-          <div className="relative overflow-hidden rounded-3xl border border-line bg-paper p-5 shadow-card md:p-7">
-            {/* Card header */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="tag tag-green">投票受付中</span>
-                <span className="text-[12px] text-ink-muted">
-                  <span className="font-bold text-ink">8</span>名が投票
-                </span>
-              </div>
-              <span className="text-[10px] tracking-wider text-ink-faint uppercase">
-                Sample
+    <main className="relative">
+      {/* ============================================================
+          01 · HERO
+          ============================================================ */}
+      <section className="relative px-6 pt-14 pb-32 md:px-12 md:pt-24 md:pb-48">
+        <div className="mx-auto grid max-w-7xl gap-16 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-12">
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="font-brand text-[10px] tracking-[0.32em] text-ink-muted uppercase">
+                ITUIKU
+              </span>
+              <span aria-hidden className="h-px w-8 bg-line-strong" />
+              <span className="font-brand text-[10px] tracking-[0.32em] text-ink-faint uppercase">
+                01 — Schedule
               </span>
             </div>
-            <h2 className="font-display mt-2 text-xl font-bold text-ink md:text-2xl">
-              卒業祝いごはん🌸
-            </h2>
 
-            {/* Sample ranking entries */}
-            <ol className="mt-5 space-y-3">
-              {[
-                { rank: "🏆", date: "6/15(土)", pct: 88, o: 7, t: 1, x: 0, names: "たろう · はなこ · じろう ..." },
-                { rank: "#2", date: "6/16(日)", pct: 75, o: 6, t: 0, x: 2, names: "たろう · はなこ · ..." },
-                { rank: "#3", date: "6/14(金)", pct: 50, o: 3, t: 2, x: 3, names: "じろう · さぶろう" },
-              ].map((row, i) => (
-                <li
-                  key={row.date}
-                  className={`rounded-2xl border p-3 md:p-4 ${
-                    i === 0 ? "border-line-strong bg-tag-yellow-bg/40" : "border-line bg-paper"
-                  }`}
+            <h1 className="font-display mt-10 text-[56px] leading-[0.92] font-bold tracking-[-0.04em] text-ink md:mt-12 md:text-[112px]">
+              When
+              <br />
+              should
+              <br />
+              <span className="italic font-medium">we meet?</span>
+            </h1>
+
+            <p className="mt-10 max-w-md text-[15px] leading-relaxed text-ink-muted md:mt-12 md:max-w-lg md:text-[17px]">
+              候補日に投票するだけ。出席率の高い順に並んだ結果を、URL ひとつで共有。
+              <span className="block mt-2 text-ink-faint">
+                Vote on candidate dates. Share by URL. Decide instantly.
+              </span>
+            </p>
+
+            <div className="mt-12 flex items-center gap-6 md:mt-16">
+              <Link
+                href="/new"
+                className="group inline-flex items-center gap-3 border-b border-ink pb-1 text-[15px] font-medium text-ink transition hover:gap-4 md:text-base"
+              >
+                <span>始める</span>
+                <svg
+                  aria-hidden
+                  className="size-4 transition-transform group-hover:translate-x-1"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  <div className="flex items-baseline justify-between">
-                    <div className="flex items-baseline gap-2">
-                      <span className="tabular text-[12px] font-bold text-ink">
-                        {row.rank}
-                      </span>
-                      <span className="font-display text-[15px] font-bold text-ink">
-                        {row.date}
-                      </span>
-                    </div>
-                    <span className="tabular font-display text-[20px] font-bold text-accent">
-                      {row.pct}
-                      <span className="text-[11px] text-ink-muted">%</span>
-                    </span>
-                  </div>
-                  {/* Stacked bar */}
-                  <div className="mt-2 flex h-2 overflow-hidden rounded-full bg-paper-shade">
-                    <div
-                      className="transition-[width]"
-                      style={{
-                        width: `${(row.o / 8) * 100}%`,
-                        backgroundColor: "var(--color-tag-green-text)",
-                      }}
-                    />
-                    <div
-                      className="transition-[width]"
-                      style={{
-                        width: `${(row.t / 8) * 100}%`,
-                        backgroundColor: "var(--color-tag-yellow-text)",
-                      }}
-                    />
-                    <div
-                      className="transition-[width]"
-                      style={{
-                        width: `${(row.x / 8) * 100}%`,
-                        backgroundColor: "var(--color-tag-red-text)",
-                      }}
-                    />
-                  </div>
-                  <div className="mt-2 flex flex-wrap gap-1 text-[11px]">
-                    <span className="tag tag-green tabular">◯ {row.o}</span>
-                    <span className="tag tag-yellow tabular">🤔 {row.t}</span>
-                    <span className="tag tag-red tabular">× {row.x}</span>
-                  </div>
-                </li>
-              ))}
-            </ol>
+                  <path d="M4 10h12m-4-5l5 5-5 5" />
+                </svg>
+              </Link>
+              <span className="text-[11px] tracking-wider text-ink-faint uppercase">
+                Free · No sign-up
+              </span>
+            </div>
           </div>
 
-          {/* Speech bubble — testimonial */}
-          <div
-            aria-hidden
-            className="animate-float-a absolute -bottom-4 -right-2 hidden md:block"
-            style={{ animationDelay: "1.5s" }}
-          >
-            <div className="relative rounded-2xl bg-paper border border-line px-4 py-2 shadow-sm">
-              <p className="text-[13px] font-semibold text-ink">
-                これで決まり！ <span aria-hidden>🙌</span>
+          {/* Right: Interactive product preview */}
+          <div className="relative md:translate-y-4">
+            <MouseTilt intensity={5} className="relative">
+              <div className="relative overflow-hidden rounded-[20px] border border-line bg-paper shadow-pop">
+                {/* Top bar */}
+                <div className="flex items-center justify-between border-b border-line bg-paper-cream px-4 py-3">
+                  <div className="flex items-center gap-1.5">
+                    <span aria-hidden className="size-2 rounded-full bg-paper-deep" />
+                    <span aria-hidden className="size-2 rounded-full bg-paper-deep" />
+                    <span aria-hidden className="size-2 rounded-full bg-paper-deep" />
+                  </div>
+                  <span className="font-brand text-[9px] tracking-widest text-ink-faint uppercase">
+                    Preview
+                  </span>
+                </div>
+
+                <div className="p-5 md:p-6">
+                  <span className="tag tag-gray text-[10px] tracking-wider uppercase">
+                    Ranking
+                  </span>
+                  <h3 className="font-display mt-3 text-lg font-bold text-ink">
+                    Year-end dinner
+                  </h3>
+
+                  <ol className="mt-5 space-y-3">
+                    {[
+                      { rank: "01", date: "Dec 14 · Fri", pct: 92, o: 11, t: 1, x: 0, winner: true },
+                      { rank: "02", date: "Dec 21 · Fri", pct: 75, o: 8, t: 1, x: 3 },
+                      { rank: "03", date: "Dec 7 · Fri", pct: 50, o: 5, t: 2, x: 5 },
+                    ].map((row) => {
+                      const total = row.o + row.t + row.x;
+                      return (
+                        <li
+                          key={row.rank}
+                          className={`rounded-xl border p-3 ${
+                            row.winner
+                              ? "border-ink bg-paper"
+                              : "border-line bg-paper"
+                          }`}
+                        >
+                          <div className="flex items-baseline justify-between">
+                            <div className="flex items-baseline gap-3">
+                              <span className="font-brand tabular text-[10px] tracking-widest text-ink-faint">
+                                {row.rank}
+                              </span>
+                              <span className="font-display text-[14px] font-bold text-ink">
+                                {row.date}
+                              </span>
+                            </div>
+                            <span className="font-display tabular text-[20px] font-bold text-ink">
+                              {row.pct}
+                              <span className="text-[10px] font-normal text-ink-muted">%</span>
+                            </span>
+                          </div>
+                          <div className="mt-2 flex h-1 overflow-hidden rounded-full bg-paper-shade">
+                            <div
+                              style={{
+                                width: `${(row.o / total) * 100}%`,
+                                backgroundColor: "var(--color-ink)",
+                              }}
+                            />
+                            <div
+                              style={{
+                                width: `${(row.t / total) * 100}%`,
+                                backgroundColor: "var(--color-ink-muted)",
+                              }}
+                            />
+                            <div
+                              style={{
+                                width: `${(row.x / total) * 100}%`,
+                                backgroundColor: "var(--color-paper-deep)",
+                              }}
+                            />
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </div>
+              </div>
+            </MouseTilt>
+
+            {/* Caption */}
+            <p className="mt-6 px-2 text-[11px] tracking-wider text-ink-faint uppercase">
+              ↓ Move your cursor. Tilt the surface.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          02 · STORY (scrollytelling)
+          ============================================================ */}
+      <section className="relative border-t border-line bg-paper-cream px-6 py-24 md:px-12 md:py-36">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-12 md:grid-cols-[1fr_1fr] md:gap-20">
+            {/* Sticky left text */}
+            <div className="md:sticky md:top-24 md:self-start">
+              <span className="font-brand text-[10px] tracking-[0.32em] text-ink-muted uppercase">
+                02 — Process
+              </span>
+              <h2 className="font-display mt-6 text-[40px] leading-[0.95] font-bold tracking-[-0.03em] text-ink md:text-[72px]">
+                <span className="italic font-medium">Three</span>
+                <br />
+                gestures.
+              </h2>
+              <p className="mt-8 max-w-md text-[15px] leading-relaxed text-ink-muted">
+                ログインも、アプリインストールも、メール認証も不要。三つの操作で意思決定が完了する。
               </p>
-              <span
-                aria-hidden
-                className="absolute -bottom-1.5 left-6 size-3 rotate-45 border-r border-b border-line bg-paper"
-              />
+            </div>
+
+            {/* Right: process panels */}
+            <div className="flex flex-col gap-px overflow-hidden rounded-2xl border border-line bg-line">
+              {[
+                {
+                  n: "01",
+                  title: "Select",
+                  jp: "候補日を選ぶ",
+                  body: "カレンダーから複数の候補をまとめて選択。範囲指定にも対応。",
+                },
+                {
+                  n: "02",
+                  title: "Share",
+                  jp: "URLを送る",
+                  body: "ログイン不要のリンクを LINE・SMS・コピペで届ける。",
+                },
+                {
+                  n: "03",
+                  title: "Resolve",
+                  jp: "結果を読む",
+                  body: "出席率の高い順に自動で並び替え。チャートで一目。",
+                },
+              ].map((s, i) => (
+                <article
+                  key={s.n}
+                  className={`scroll-enter flex gap-8 bg-paper p-7 transition md:p-10 ${
+                    i === 0 ? "" : ""
+                  }`}
+                >
+                  <span className="font-brand tabular text-[11px] tracking-widest text-ink-faint">
+                    {s.n}
+                  </span>
+                  <div className="flex-1">
+                    <h3 className="font-display text-2xl font-bold tracking-tight text-ink md:text-[28px]">
+                      <span className="italic font-medium">{s.title}</span>
+                      <span className="ml-3 font-normal text-ink-muted text-base">
+                        — {s.jp}
+                      </span>
+                    </h3>
+                    <p className="mt-3 max-w-md text-[14px] leading-relaxed text-ink-muted">
+                      {s.body}
+                    </p>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3 steps */}
-      <section
-        className="animate-fade-up mt-12 md:mt-16"
-        style={{ animationDelay: "320ms" }}
-      >
-        <h3 className="font-display text-center text-[18px] font-bold text-ink md:text-2xl">
-          かんたん3ステップ
-        </h3>
-        <ol className="mt-5 grid gap-3 md:grid-cols-3 md:gap-4">
-          {[
-            {
-              n: "01",
-              emoji: "🗓",
-              title: "候補日を選ぶ",
-              body: "カレンダーから複数の候補を一気にタップ。範囲選択もOK。",
-              chip: "tag-blue",
-            },
-            {
-              n: "02",
-              emoji: "🔗",
-              title: "URLを共有",
-              body: "LINE・SMS で送るだけ。ログイン不要で誰でも投票できる。",
-              chip: "tag-green",
-            },
-            {
-              n: "03",
-              emoji: "🏆",
-              title: "出席率順に集計",
-              body: "1位が一目でわかる。チャートで全員の都合がパッと見える。",
-              chip: "tag-yellow",
-            },
-          ].map((s) => (
-            <li
-              key={s.n}
-              className="group relative overflow-hidden rounded-2xl border border-line bg-paper p-5 transition hover:border-line-strong hover:shadow-soft"
-            >
-              <div className="flex items-center justify-between">
-                <span
-                  aria-hidden
-                  className={`tag ${s.chip} text-[10px] tracking-wider uppercase`}
-                >
-                  STEP {s.n}
-                </span>
-                <span
-                  aria-hidden
-                  className="text-3xl transition group-hover:animate-wiggle"
-                >
-                  {s.emoji}
-                </span>
-              </div>
-              <h4 className="font-display mt-3 text-[16px] font-bold text-ink md:text-lg">
-                {s.title}
-              </h4>
-              <p className="mt-1 text-[12px] leading-relaxed text-ink-muted md:text-[13px]">
-                {s.body}
-              </p>
-            </li>
-          ))}
-        </ol>
+      {/* ============================================================
+          03 · POSITION (manifesto)
+          ============================================================ */}
+      <section className="relative border-t border-line px-6 py-24 md:px-12 md:py-36">
+        <div className="mx-auto max-w-5xl">
+          <div className="flex items-center gap-3">
+            <span className="font-brand text-[10px] tracking-[0.32em] text-ink-muted uppercase">
+              03 — Manifesto
+            </span>
+            <span aria-hidden className="h-px flex-1 bg-line-strong" />
+          </div>
+
+          <blockquote className="scroll-enter mt-12 md:mt-16">
+            <p className="font-display text-[32px] leading-[1.15] font-bold tracking-[-0.02em] text-ink md:text-[56px]">
+              <span className="italic font-medium">候補日10件</span>
+              でも、
+              <br />
+              <span className="text-ink-muted">30秒</span>
+              で答えられる。
+            </p>
+            <footer className="mt-10 flex items-center gap-3 text-[11px] tracking-wider text-ink-faint uppercase">
+              <span aria-hidden className="h-px w-12 bg-line-strong" />
+              <span>The principle</span>
+            </footer>
+          </blockquote>
+        </div>
       </section>
 
-      {/* Strengths / why ituiku */}
-      <section className="scroll-enter relative mt-14 md:mt-20">
-        <div className="text-center">
-          <span className="tag tag-blue">なぜ いついく？</span>
-          <h3 className="font-display mt-3 text-[22px] font-bold text-ink md:text-3xl">
-            候補日が多くてもラク。
-            <br className="md:hidden" />
-            これが いついく？ の理由。
-          </h3>
-          <p className="mx-auto mt-2 max-w-xl text-[13px] leading-relaxed text-ink-muted md:text-[14px]">
-            既存の日程調整は「候補日が増えると地獄」。いついく？ は
-            <strong className="font-bold text-ink">スマホで・速く・楽しく</strong>
-            集計できる仕組みを最優先で作りました。
-          </p>
-        </div>
+      {/* ============================================================
+          04 · PRINCIPLES
+          ============================================================ */}
+      <section className="relative border-t border-line bg-paper-cream px-6 py-24 md:px-12 md:py-36">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex items-baseline justify-between">
+            <span className="font-brand text-[10px] tracking-[0.32em] text-ink-muted uppercase">
+              04 — Principles
+            </span>
+            <span className="font-brand text-[10px] tracking-widest text-ink-faint">
+              5 · TOTAL
+            </span>
+          </div>
 
-        <ul className="mt-8 grid gap-3 md:grid-cols-2 md:gap-4">
-          {[
-            {
-              emoji: "⚡",
-              tag: "tag-yellow",
-              tagLabel: "圧倒的に速い",
-              title: "30件の候補日も数タップで",
-              body: "「全部◯」「範囲で◯」を組み合わせれば、候補日が多くてもベース投票が一瞬。あとは合わない日だけ × にすればOK。",
-              vs: "vs 調整さん：1セルずつタップして指が疲れる",
-            },
-            {
-              emoji: "📱",
-              tag: "tag-green",
-              tagLabel: "スマホ100%",
-              title: "片手で完結する大きなUI",
-              body: "ボタンは指タップ最適サイズ。safe-areaも考慮。電車内・片手でもストレスなし。",
-              vs: "vs LINEスケジュール：縦長で読みにくく操作も面倒",
-            },
-            {
-              emoji: "🔓",
-              tag: "tag-purple",
-              tagLabel: "ログイン不要",
-              title: "URL を送るだけで投票開始",
-              body: "幹事も参加者もアカウント不要。LINE 未利用の友達にも普通のURLとして送れる。",
-              vs: "vs LINEスケジュール：LINE グループ内でしか使えない",
-            },
-            {
-              emoji: "📊",
-              tag: "tag-orange",
-              tagLabel: "結果が一目",
-              title: "出席率順 + チャートで可視化",
-              body: "1位が一目でわかる。◯/🤔/× の人数を3色スタックバーで表示し、誰がどう答えたかも丸わかり。",
-              vs: "vs 他サービス：数字だけで頭で計算が必要",
-            },
-            {
-              emoji: "🤔",
-              tag: "tag-blue",
-              tagLabel: "「微妙」も投票",
-              title: "現実的な3段階評価",
-              body: "◯ と × だけでは表現できない「行けるけど…」を 🤔 で。複雑な事情を1タップで共有。",
-              vs: "vs 単純な◯×：「微妙」を補足コメントで書く手間",
-            },
-            {
-              emoji: "💸",
-              tag: "tag-gray",
-              tagLabel: "無料",
-              title: "完全無料・広告なし",
-              body: "ご飯会レベルの日程調整に課金は不要。長く続けられる仕組みで運用。",
-              vs: "ストレスフリーな日程調整体験",
-            },
-          ].map((s) => (
-            <li
-              key={s.title}
-              className="group relative flex gap-4 rounded-2xl border border-line bg-paper p-4 transition hover:border-line-strong hover:shadow-soft md:p-5"
-            >
-              <div
-                aria-hidden
-                className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-paper-shade text-2xl transition group-hover:animate-wiggle"
+          <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:mt-16 md:grid-cols-2">
+            {[
+              {
+                n: "I",
+                title: "Vote, not navigate",
+                jp: "操作ではなく、投票",
+                body: "30件の候補日も数タップで完結。一括投票・範囲投票で「指が疲れる」を解消。",
+              },
+              {
+                n: "II",
+                title: "Phone-first geometry",
+                jp: "スマホ前提の設計",
+                body: "ボタンは指サイズ。safe-area を尊重。片手で完結する縦スクロール。",
+              },
+              {
+                n: "III",
+                title: "No identity required",
+                jp: "誰のものでもない",
+                body: "ログインなし。URLを知っている人が、それだけで参加できる。",
+              },
+              {
+                n: "IV",
+                title: "Numbers, then names",
+                jp: "数字 → 名前",
+                body: "出席率順に自動ランキング。3色スタックバーで内訳が即時に伝わる。",
+              },
+              {
+                n: "V",
+                title: "Doubt is a valid state",
+                jp: "「微妙」も意思",
+                body: "◯ と × の間にある「行けるかも」を、◯ 🤔 × の三段階で素直に表現できる。",
+              },
+            ].map((p) => (
+              <article
+                key={p.n}
+                className="scroll-enter flex flex-col gap-6 bg-paper p-7 transition md:p-10"
               >
-                {s.emoji}
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <span className={`tag ${s.tag} text-[10px] uppercase tracking-wider`}>
-                    {s.tagLabel}
+                <div className="flex items-baseline justify-between">
+                  <span className="font-display tabular text-[36px] font-medium italic leading-none text-ink-faint md:text-[44px]">
+                    {p.n}
+                  </span>
+                  <span className="text-[10px] tracking-widest text-ink-faint uppercase">
+                    {p.jp}
                   </span>
                 </div>
-                <h4 className="font-display mt-1.5 text-[15px] font-bold text-ink md:text-base">
-                  {s.title}
-                </h4>
-                <p className="mt-1 text-[12px] leading-relaxed text-ink-muted md:text-[13px]">
-                  {s.body}
+                <h3 className="font-display text-xl font-bold tracking-tight text-ink md:text-[26px]">
+                  {p.title}
+                </h3>
+                <p className="text-[13px] leading-relaxed text-ink-muted md:text-[14px]">
+                  {p.body}
                 </p>
-                <p className="mt-2 text-[11px] text-ink-faint italic">
-                  {s.vs}
-                </p>
+              </article>
+            ))}
+
+            {/* Last empty cell for grid balance + final CTA hint */}
+            <article className="scroll-enter flex flex-col justify-between gap-6 bg-paper p-7 md:p-10">
+              <div className="flex items-baseline justify-between">
+                <span className="font-display tabular text-[36px] font-medium italic leading-none text-ink-faint md:text-[44px]">
+                  —
+                </span>
+                <span className="text-[10px] tracking-widest text-ink-faint uppercase">
+                  Try it
+                </span>
               </div>
-            </li>
-          ))}
-        </ul>
+              <Link
+                href="/new"
+                className="group mt-auto inline-flex items-center gap-3 text-[15px] font-medium text-ink"
+              >
+                <span className="border-b border-ink pb-0.5">
+                  最初のイベントを作る
+                </span>
+                <svg
+                  aria-hidden
+                  className="size-4 transition-transform group-hover:translate-x-1"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M4 10h12m-4-5l5 5-5 5" />
+                </svg>
+              </Link>
+            </article>
+          </div>
+        </div>
       </section>
 
-      {/* Differentiation tagline */}
-      <section className="scroll-enter-rotate relative mt-14 overflow-hidden rounded-3xl border border-line bg-paper p-7 text-center md:mt-20 md:p-10">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-12 -left-12 h-40 w-40 rounded-full bg-tag-yellow-bg blur-3xl opacity-60"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -bottom-12 -right-12 h-40 w-40 rounded-full bg-tag-blue-bg blur-3xl opacity-60"
-        />
-        <div className="relative">
-          <p className="font-brand text-[10px] tracking-widest text-ink-muted uppercase">
-            One Liner
-          </p>
-          <p className="font-display mt-2 text-[20px] leading-tight font-bold text-ink md:text-2xl">
-            候補日10件でも、30秒で答えられる。
+      {/* ============================================================
+          05 · CTA
+          ============================================================ */}
+      <section className="relative border-t border-line px-6 py-32 md:px-12 md:py-48">
+        <div className="mx-auto max-w-5xl text-center">
+          <span className="font-brand text-[10px] tracking-[0.32em] text-ink-muted uppercase">
+            05 — Begin
+          </span>
+          <h2 className="font-display mt-8 text-[44px] leading-[0.95] font-bold tracking-[-0.04em] text-ink md:text-[96px]">
+            <span className="italic font-medium">Decide</span>
             <br />
-            スマホ専用の日程調整、いついく？
+            tonight.
+          </h2>
+          <p className="mt-10 text-[15px] text-ink-muted md:text-base">
+            無料 · ログイン不要 · 候補日いくつでも
           </p>
+          <div className="mt-14 flex justify-center md:mt-16">
+            <Link
+              href="/new"
+              className="group inline-flex items-center gap-3 rounded-full border border-ink bg-ink px-8 py-4 text-[15px] font-medium text-paper transition hover:gap-4 active:scale-[0.98] md:px-10 md:py-5 md:text-base"
+            >
+              <span>イベントを作る</span>
+              <svg
+                aria-hidden
+                className="size-4 transition-transform group-hover:translate-x-1"
+                viewBox="0 0 20 20"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M4 10h12m-4-5l5 5-5 5" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Footer note */}
-      <p
-        className="animate-fade-up mt-12 text-center text-[12px] text-ink-faint"
-        style={{ animationDelay: "560ms" }}
-      >
-        無料 ・ アカウント登録不要 ・ 候補日いくつでも
-      </p>
-
-      {/* Sticky CTA */}
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-paper/95 px-5 pt-3 pb-[calc(env(safe-area-inset-bottom)+14px)] backdrop-blur md:left-64 md:px-10 md:pt-4 md:pb-4">
-        <div className="mx-auto max-w-md md:max-w-5xl">
-          <Link
-            href="/new"
-            className="group relative flex h-14 w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-accent text-[16px] font-bold text-paper shadow-pop transition hover:bg-accent-strong active:scale-[0.985] md:h-12 md:text-[15px]"
-          >
-            <span
-              aria-hidden
-              className="absolute inset-x-0 top-0 h-px bg-white/30"
-            />
-            <span className="relative font-display tracking-tight">
-              イベントを作る
-            </span>
-            <svg
-              aria-hidden
-              className="relative size-5 transition group-hover:translate-x-0.5"
-              viewBox="0 0 20 20"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M4 10h12m-4-4l4 4-4 4" />
-            </svg>
-          </Link>
+      {/* Footer hairline */}
+      <footer className="border-t border-line px-6 py-10 md:px-12">
+        <div className="mx-auto flex max-w-7xl items-center justify-between text-[10px] tracking-widest text-ink-faint uppercase">
+          <span className="font-brand">© Ituiku</span>
+          <span>Mobile-first scheduling</span>
         </div>
-      </div>
+      </footer>
     </main>
   );
 }
