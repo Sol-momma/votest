@@ -259,10 +259,136 @@ export default function Home() {
         </ol>
       </section>
 
+      {/* Strengths / why ituiku */}
+      <section
+        className="animate-fade-up relative mt-14 md:mt-20"
+        style={{ animationDelay: "400ms" }}
+      >
+        <div className="text-center">
+          <span className="tag tag-blue">なぜ いついく？</span>
+          <h3 className="font-display mt-3 text-[22px] font-bold text-ink md:text-3xl">
+            候補日が多くてもラク。
+            <br className="md:hidden" />
+            これが いついく？ の理由。
+          </h3>
+          <p className="mx-auto mt-2 max-w-xl text-[13px] leading-relaxed text-ink-muted md:text-[14px]">
+            既存の日程調整は「候補日が増えると地獄」。いついく？ は
+            <strong className="font-bold text-ink">スマホで・速く・楽しく</strong>
+            集計できる仕組みを最優先で作りました。
+          </p>
+        </div>
+
+        <ul className="mt-8 grid gap-3 md:grid-cols-2 md:gap-4">
+          {[
+            {
+              emoji: "⚡",
+              tag: "tag-yellow",
+              tagLabel: "圧倒的に速い",
+              title: "30件の候補日も数タップで",
+              body: "「全部◯」「範囲で◯」を組み合わせれば、候補日が多くてもベース投票が一瞬。あとは合わない日だけ × にすればOK。",
+              vs: "vs 調整さん：1セルずつタップして指が疲れる",
+            },
+            {
+              emoji: "📱",
+              tag: "tag-green",
+              tagLabel: "スマホ100%",
+              title: "片手で完結する大きなUI",
+              body: "ボタンは指タップ最適サイズ。safe-areaも考慮。電車内・片手でもストレスなし。",
+              vs: "vs LINEスケジュール：縦長で読みにくく操作も面倒",
+            },
+            {
+              emoji: "🔓",
+              tag: "tag-purple",
+              tagLabel: "ログイン不要",
+              title: "URL を送るだけで投票開始",
+              body: "幹事も参加者もアカウント不要。LINE 未利用の友達にも普通のURLとして送れる。",
+              vs: "vs LINEスケジュール：LINE グループ内でしか使えない",
+            },
+            {
+              emoji: "📊",
+              tag: "tag-orange",
+              tagLabel: "結果が一目",
+              title: "出席率順 + チャートで可視化",
+              body: "1位が一目でわかる。◯/🤔/× の人数を3色スタックバーで表示し、誰がどう答えたかも丸わかり。",
+              vs: "vs 他サービス：数字だけで頭で計算が必要",
+            },
+            {
+              emoji: "🤔",
+              tag: "tag-blue",
+              tagLabel: "「微妙」も投票",
+              title: "現実的な3段階評価",
+              body: "◯ と × だけでは表現できない「行けるけど…」を 🤔 で。複雑な事情を1タップで共有。",
+              vs: "vs 単純な◯×：「微妙」を補足コメントで書く手間",
+            },
+            {
+              emoji: "💸",
+              tag: "tag-gray",
+              tagLabel: "無料",
+              title: "完全無料・広告なし",
+              body: "ご飯会レベルの日程調整に課金は不要。長く続けられる仕組みで運用。",
+              vs: "ストレスフリーな日程調整体験",
+            },
+          ].map((s) => (
+            <li
+              key={s.title}
+              className="group relative flex gap-4 rounded-2xl border border-line bg-paper p-4 transition hover:border-line-strong hover:shadow-soft md:p-5"
+            >
+              <div
+                aria-hidden
+                className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-paper-shade text-2xl transition group-hover:animate-wiggle"
+              >
+                {s.emoji}
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <span className={`tag ${s.tag} text-[10px] uppercase tracking-wider`}>
+                    {s.tagLabel}
+                  </span>
+                </div>
+                <h4 className="font-display mt-1.5 text-[15px] font-bold text-ink md:text-base">
+                  {s.title}
+                </h4>
+                <p className="mt-1 text-[12px] leading-relaxed text-ink-muted md:text-[13px]">
+                  {s.body}
+                </p>
+                <p className="mt-2 text-[11px] text-ink-faint italic">
+                  {s.vs}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Differentiation tagline */}
+      <section
+        className="animate-fade-up relative mt-14 overflow-hidden rounded-3xl border border-line bg-paper p-7 text-center md:mt-20 md:p-10"
+        style={{ animationDelay: "500ms" }}
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-12 -left-12 h-40 w-40 rounded-full bg-tag-yellow-bg blur-3xl opacity-60"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-12 -right-12 h-40 w-40 rounded-full bg-tag-blue-bg blur-3xl opacity-60"
+        />
+        <div className="relative">
+          <p className="font-brand text-[10px] tracking-widest text-ink-muted uppercase">
+            One Liner
+          </p>
+          <p className="font-display mt-2 text-[20px] leading-tight font-bold text-ink md:text-2xl">
+            候補日10件でも、30秒で答えられる。
+            <br />
+            スマホ専用の日程調整、いついく？
+          </p>
+        </div>
+      </section>
+
       {/* Footer note */}
       <p
-        className="animate-fade-up mt-10 text-center text-[12px] text-ink-faint"
-        style={{ animationDelay: "440ms" }}
+        className="animate-fade-up mt-12 text-center text-[12px] text-ink-faint"
+        style={{ animationDelay: "560ms" }}
       >
         無料 ・ アカウント登録不要 ・ 候補日いくつでも
       </p>

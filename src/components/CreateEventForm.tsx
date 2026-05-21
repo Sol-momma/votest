@@ -9,12 +9,20 @@ export function CreateEventForm() {
   const [title, setTitle] = useState("");
   const [dates, setDates] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [attempted, setAttempted] = useState(false);
   const [pending, startTransition] = useTransition();
 
-  const canSubmit = title.trim().length > 0 && dates.length > 0 && !pending;
+  const titleValid = title.trim().length > 0;
+  const datesValid = dates.length > 0;
+  const canSubmit = titleValid && datesValid && !pending;
+
+  const titleError = attempted && !titleValid;
+  const datesError = attempted && !datesValid;
 
   const onSubmit = () => {
+    setAttempted(true);
     setError(null);
+    if (!canSubmit) return;
     startTransition(async () => {
       const res = await createEvent({ title: title.trim(), dates });
       if (res && !res.ok) setError(res.error);
@@ -39,8 +47,11 @@ export function CreateEventForm() {
       >
         <label className="block">
           <div className="mb-2 flex items-center justify-between px-0.5">
-            <span className="text-[13px] font-semibold text-ink-soft">
+            <span className="flex items-center gap-1.5 text-[13px] font-semibold text-ink-soft">
               タイトル
+              <span aria-hidden className="text-tag-red-text">
+                *
+              </span>
             </span>
             <span className="tabular text-[11px] text-ink-faint">
               {title.length} / 80
@@ -52,8 +63,36 @@ export function CreateEventForm() {
             onChange={(e) => setTitle(e.target.value)}
             maxLength={80}
             placeholder="例：卒業祝いごはん🌸"
-            className="font-display h-12 w-full rounded-md border border-line bg-paper px-3 text-[16px] font-semibold text-ink transition placeholder:font-normal placeholder:text-ink-faint focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent-soft"
+            aria-invalid={titleError}
+            aria-describedby={titleError ? "title-error" : undefined}
+            className={`font-display h-12 w-full rounded-md border bg-paper px-3 text-[16px] font-semibold text-ink transition placeholder:font-normal placeholder:text-ink-faint focus:outline-none focus:ring-2 ${
+              titleError
+                ? "border-tag-red-text bg-tag-red-bg/30 focus:border-tag-red-text focus:ring-tag-red-bg"
+                : "border-line focus:border-accent focus:ring-accent-soft"
+            }`}
           />
+          {titleError && (
+            <p
+              id="title-error"
+              role="alert"
+              className="mt-1.5 flex items-center gap-1 px-1 text-[12px] font-medium text-tag-red-text"
+            >
+              <svg
+                aria-hidden
+                className="size-3.5"
+                viewBox="0 0 20 20"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="10" cy="10" r="8" />
+                <path d="M10 6v4M10 14h.01" />
+              </svg>
+              タイトルを入力してください
+            </p>
+          )}
         </label>
       </section>
 
@@ -65,8 +104,11 @@ export function CreateEventForm() {
           style={{ animationDelay: "120ms" }}
         >
           <div className="mb-2 flex items-center justify-between px-0.5">
-            <span className="text-[13px] font-semibold text-ink-soft">
+            <span className="flex items-center gap-1.5 text-[13px] font-semibold text-ink-soft">
               候補日
+              <span aria-hidden className="text-tag-red-text">
+                *
+              </span>
             </span>
             {dates.length > 0 && (
               <span className="tabular text-[11px] text-ink-faint">
@@ -74,7 +116,39 @@ export function CreateEventForm() {
               </span>
             )}
           </div>
-          <DatePickerMulti value={dates} onChange={setDates} />
+          <div
+            className={
+              datesError
+                ? "rounded-md ring-2 ring-tag-red-text ring-offset-2 ring-offset-paper"
+                : ""
+            }
+            aria-invalid={datesError}
+            aria-describedby={datesError ? "dates-error" : undefined}
+          >
+            <DatePickerMulti value={dates} onChange={setDates} />
+          </div>
+          {datesError && (
+            <p
+              id="dates-error"
+              role="alert"
+              className="mt-2 flex items-center gap-1 px-1 text-[12px] font-medium text-tag-red-text"
+            >
+              <svg
+                aria-hidden
+                className="size-3.5"
+                viewBox="0 0 20 20"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="10" cy="10" r="8" />
+                <path d="M10 6v4M10 14h.01" />
+              </svg>
+              候補日を1つ以上選んでください
+            </p>
+          )}
         </section>
 
         {/* Selected dates panel — sticky on desktop */}
@@ -138,16 +212,38 @@ export function CreateEventForm() {
               </div>
             </div>
           ) : (
-            <div className="callout callout-gray">
+            <div
+              className={`callout ${
+                datesError ? "" : "callout-gray"
+              }`}
+              style={
+                datesError
+                  ? {
+                      backgroundColor: "var(--color-tag-red-bg)",
+                      color: "var(--color-tag-red-text)",
+                    }
+                  : undefined
+              }
+            >
               <span aria-hidden className="text-base leading-tight">
-                📝
+                {datesError ? "⚠️" : "📝"}
               </span>
               <div className="flex-1">
-                <p className="text-[12px] font-semibold text-ink-soft">
+                <p
+                  className={`text-[12px] font-semibold ${
+                    datesError ? "" : "text-ink-soft"
+                  }`}
+                >
                   選んだ候補日
                 </p>
-                <p className="mt-1 text-[12px] text-ink-faint">
-                  ここに選んだ日が並びます。
+                <p
+                  className={`mt-1 text-[12px] ${
+                    datesError ? "font-medium" : "text-ink-faint"
+                  }`}
+                >
+                  {datesError
+                    ? "1つ以上選んでください"
+                    : "ここに選んだ日が並びます。"}
                 </p>
               </div>
             </div>
@@ -170,15 +266,35 @@ export function CreateEventForm() {
 
       {/* Sticky CTA */}
       <div className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-paper px-5 pt-3 pb-[calc(env(safe-area-inset-bottom)+14px)] md:px-10">
-        <div className="mx-auto max-w-md md:max-w-6xl md:flex md:justify-end">
+        <div className="mx-auto max-w-md md:max-w-6xl md:flex md:items-center md:justify-end md:gap-4">
+          {attempted && !canSubmit && !pending && (
+            <p className="mb-2 flex items-center justify-center gap-1 text-[11px] font-medium text-tag-red-text md:mb-0 md:justify-end">
+              <svg
+                aria-hidden
+                className="size-3.5"
+                viewBox="0 0 20 20"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="10" cy="10" r="8" />
+                <path d="M10 6v4M10 14h.01" />
+              </svg>
+              {!titleValid && "タイトル"}
+              {!titleValid && !datesValid && " と "}
+              {!datesValid && "候補日"}
+              が未入力です
+            </p>
+          )}
           <button
             type="button"
-            disabled={!canSubmit}
             onClick={onSubmit}
             className={`flex h-12 w-full items-center justify-center gap-2 rounded-md text-[15px] font-semibold transition active:scale-[0.985] md:w-auto md:px-8 ${
               canSubmit
-                ? "bg-accent text-paper shadow-sm active:bg-accent-strong"
-                : "cursor-not-allowed bg-paper-deep text-ink-faint"
+                ? "bg-accent text-paper shadow-sm hover:bg-accent-strong"
+                : "bg-paper-deep text-ink-faint hover:bg-paper-shade"
             }`}
           >
             {pending ? (
@@ -204,14 +320,6 @@ export function CreateEventForm() {
               </>
             )}
           </button>
-          {!canSubmit && !pending && (
-            <p className="mt-2 text-center text-[11px] text-ink-faint md:mt-0 md:self-center md:pr-4 md:text-right">
-              {title.trim().length === 0 && "タイトル"}
-              {title.trim().length === 0 && dates.length === 0 && " と "}
-              {dates.length === 0 && "候補日"}
-              を入力してください
-            </p>
-          )}
         </div>
       </div>
     </main>

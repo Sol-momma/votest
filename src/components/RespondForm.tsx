@@ -71,6 +71,9 @@ export function RespondForm({ eventId, eventTitle, dates }: Props) {
 
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [attempted, setAttempted] = useState(false);
+  const nicknameValid = nickname.trim().length > 0;
+  const nicknameError = attempted && !nicknameValid;
 
   const today = useMemo(() => {
     const d = new Date();
@@ -162,10 +165,12 @@ export function RespondForm({ eventId, eventTitle, dates }: Props) {
   const tPct = (counts.t / total) * 100;
   const xPct = (counts.x / total) * 100;
 
-  const canSubmit = nickname.trim().length > 0 && !pending;
+  const canSubmit = nicknameValid && !pending;
 
   const onSubmit = () => {
+    setAttempted(true);
     setError(null);
+    if (!canSubmit) return;
     startTransition(async () => {
       const res = await submitResponse({
         eventId,
@@ -404,8 +409,11 @@ export function RespondForm({ eventId, eventTitle, dates }: Props) {
 
   const NicknameBlock = (
     <label className="block">
-      <span className="mb-2 block px-0.5 text-[13px] font-semibold text-ink-soft">
+      <span className="mb-2 flex items-center gap-1.5 px-0.5 text-[13px] font-semibold text-ink-soft">
         あなたの名前
+        <span aria-hidden className="text-tag-red-text">
+          *
+        </span>
       </span>
       <input
         type="text"
@@ -415,8 +423,36 @@ export function RespondForm({ eventId, eventTitle, dates }: Props) {
         value={nickname}
         onChange={(e) => setNickname(e.target.value)}
         placeholder="例：たろう"
-        className="font-display h-12 w-full rounded-md border border-line bg-paper px-3 text-[16px] font-semibold text-ink transition placeholder:font-normal placeholder:text-ink-faint focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent-soft"
+        aria-invalid={nicknameError}
+        aria-describedby={nicknameError ? "nickname-error" : undefined}
+        className={`font-display h-12 w-full rounded-md border bg-paper px-3 text-[16px] font-semibold text-ink transition placeholder:font-normal placeholder:text-ink-faint focus:outline-none focus:ring-2 ${
+          nicknameError
+            ? "border-tag-red-text bg-tag-red-bg/30 focus:border-tag-red-text focus:ring-tag-red-bg"
+            : "border-line focus:border-accent focus:ring-accent-soft"
+        }`}
       />
+      {nicknameError && (
+        <p
+          id="nickname-error"
+          role="alert"
+          className="mt-1.5 flex items-center gap-1 px-1 text-[12px] font-medium text-tag-red-text"
+        >
+          <svg
+            aria-hidden
+            className="size-3.5"
+            viewBox="0 0 20 20"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="10" cy="10" r="8" />
+            <path d="M10 6v4M10 14h.01" />
+          </svg>
+          名前を入力してください
+        </p>
+      )}
     </label>
   );
 
@@ -424,12 +460,11 @@ export function RespondForm({ eventId, eventTitle, dates }: Props) {
     <div>
       <button
         type="button"
-        disabled={!canSubmit}
         onClick={onSubmit}
         className={`flex h-12 w-full items-center justify-center gap-2 rounded-md text-[15px] font-semibold transition active:scale-[0.985] ${
           canSubmit
             ? "bg-accent text-paper shadow-sm hover:bg-accent-strong"
-            : "cursor-not-allowed bg-paper-deep text-ink-faint"
+            : "bg-paper-deep text-ink-faint hover:bg-paper-shade"
         }`}
       >
         {pending ? (
@@ -455,8 +490,21 @@ export function RespondForm({ eventId, eventTitle, dates }: Props) {
           </>
         )}
       </button>
-      {!canSubmit && !pending && (
-        <p className="mt-2 text-center text-[11px] text-ink-faint">
+      {attempted && !canSubmit && !pending && (
+        <p className="mt-2 flex items-center justify-center gap-1 text-center text-[11px] font-medium text-tag-red-text">
+          <svg
+            aria-hidden
+            className="size-3.5"
+            viewBox="0 0 20 20"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="10" cy="10" r="8" />
+            <path d="M10 6v4M10 14h.01" />
+          </svg>
           名前を入力してください
         </p>
       )}
